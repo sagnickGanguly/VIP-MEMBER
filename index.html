@@ -14,47 +14,89 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        /* 1. ANIMATED BACKGROUND */
         body {
-            background-color: #0d0d0d;
+            background: linear-gradient(-45deg, #0d0d0d, #2b0b16, #0d0d0d, #1a050d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            overflow: hidden;
         }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 2. GLASSMORPHISM CONTAINER */
         .container {
-            background: #1a1a1a;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             max-width: 450px;
             width: 100%;
             text-align: center;
-            border: 1px solid #333;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        /* 3. TEXT & ELEMENT OPENING ANIMATIONS */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Staggered delays for the cool one-by-one opening effect */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.7s; }
 
         h1 {
             color: #ff477e;
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
         p {
-            color: #cccccc;
-            font-size: 14px;
+            color: #d9d9d9;
+            font-size: 15px;
             margin-bottom: 25px;
             line-height: 1.6;
         }
 
         .stats {
-            background: #262626;
-            padding: 15px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 18px;
+            border-radius: 12px;
             margin-bottom: 25px;
             text-align: left;
-            font-size: 13px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 71, 126, 0.2);
         }
 
         .stats span {
@@ -66,24 +108,26 @@
             background: linear-gradient(135deg, #ff477e, #ff7b9c);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 14px 25px;
+            border-radius: 30px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             width: 100%;
             margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 71, 126, 0.5);
         }
 
         input[type="radio"] {
             accent-color: #ff477e;
             margin-right: 10px;
+            transform: scale(1.2);
         }
 
         .radio-group {
@@ -92,24 +136,33 @@
         }
 
         .radio-option {
-            background: #262626;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
             cursor: pointer;
             display: block;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option:hover {
+            border-color: rgba(255, 71, 126, 0.5);
+            background: rgba(255, 71, 126, 0.05);
         }
 
         textarea {
             width: 100%;
-            background: #262626;
-            border: 1px solid #444;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 10px;
             resize: none;
-            height: 100px;
+            height: 110px;
             margin-bottom: 20px;
+            font-family: inherit;
+            transition: border-color 0.3s;
         }
 
         textarea:focus {
@@ -117,20 +170,16 @@
             border-color: #ff477e;
         }
 
-        .hidden {
-            display: none;
-        }
-
         .heart {
-            font-size: 40px;
+            font-size: 45px;
             margin-bottom: 15px;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 71, 126, 0); }
+            50% { transform: scale(1.15); text-shadow: 0 0 20px rgba(255, 71, 126, 0.6); }
+            100% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 71, 126, 0); }
         }
     </style>
 </head>
@@ -138,38 +187,39 @@
 
     <!-- STEP 1: WELCOME SCREEN -->
     <div class="container" id="step1">
-        <h1>Sagnick's VIP Club 🔒</h1>
-        <p>Access Granted. Welcome back, Krishna.</p>
+        <h1 class="slide-up delay-1">Sagnick's VIP Club 🔒</h1>
+        <p class="slide-up delay-2">Access Granted. Welcome, Krishna.</p>
         
-        <div class="stats">
+        <div class="stats slide-up delay-3">
             Total Members Allowed: <span>1</span><br>
             The Only Member: <span>Krishna</span><br><br>
             <strong>Unlocked Perks:</strong><br>
             • Will never have to cook.<br>
             • Gets to deal with my extreme confidence.<br>
-            • Free entertainment
-            • Always Brightens You Mood 
-            • Will Bear All Of You Mood Swings
-            • Stays Loyal To The One (This Is Very Precious Perk)
+            • Free entertainment.
+            • Lightens Up Your Mood 
+            • Make Your Stress Full Day To Relaxed Night
+            • Will Bear All Of The Mood Swings And Anger
+            • And Always Stays Loyal To The One (This Is Very Precious Perk)
         </div>
         
-        <p>Since you are the only VIP member, an exclusive reward is pending.</p>
-        <button onclick="showStep2()">Claim Reward</button>
+        <p class="slide-up delay-4">Since you are the only VIP member, an exclusive reward is pending.</p>
+        <button class="slide-up delay-4" onclick="transitionTo('step1', 'step2')">Claim Reward</button>
     </div>
 
     <!-- STEP 2: THE FORM SCREEN -->
     <div class="container hidden" id="step2">
-        <h1>Security Check 🔍</h1>
-        <p>To unlock your reward, the developer requires an honest review.</p>
+        <h1 class="slide-up delay-1">Security Check 🔍</h1>
+        <p class="slide-up delay-2">To unlock your reward, the developer requires an honest review.</p>
 
-        <form id="vipForm">
-            <!-- Replace with your Web3Forms Access Key -->
+        <form id="vipForm" class="slide-up delay-3">
+            <!-- REPLACE WITH YOUR WEB3FORMS ACCESS KEY -->
             <input type="hidden" name="access_key" value="8d070a0b-0caa-4ee0-9075-bd1ddfe2d4df">
             <input type="hidden" name="subject" value="New VIP Submission from Krishna!">
             <input type="hidden" name="from_name" value="Krishna VIP Portal">
 
             <div class="radio-group">
-                <label style="display:block; margin-bottom:10px; color:#ff477e; font-weight:600;">Current mood after 4 days of talking?</label>
+                <label style="display:block; margin-bottom:12px; color:#ff477e; font-weight:600;">Current mood after 4 days of talking?</label>
                 
                 <label class="radio-option">
                     <input type="radio" name="Mood" value="Impressed by him" required> Impressed by him
@@ -182,7 +232,7 @@
                 </label>
             </div>
 
-            <label style="display:block; text-align:left; margin-bottom:10px; color:#ff477e; font-weight:600;">Honestly, what do you think about me as of now?</label>
+            <label style="display:block; text-align:left; margin-bottom:12px; color:#ff477e; font-weight:600;">Honestly, what do you think about me as of now?</label>
             <textarea name="Review_Text" placeholder="Type your honest thoughts here..." required></textarea>
 
             <button type="submit" id="submitBtn">Submit & Unlock Reward</button>
@@ -191,22 +241,41 @@
 
     <!-- STEP 3: THE REWARD (FLIRT) SCREEN -->
     <div class="container hidden" id="step3">
-        <div class="heart">🤍</div>
-        <h1>Reward Unlocked ✨</h1>
-        <p>Here is your exclusive VIP reward: <strong>A Confession.</strong></p>
-        <p style="font-size: 16px; color: #e6e6e6; margin-top: 20px;">
+        <div class="heart slide-up delay-1">🤍</div>
+        <h1 class="slide-up delay-2">Reward Unlocked ✨</h1>
+        <p class="slide-up delay-3">Here is your exclusive VIP reward: <strong>A Confession.</strong></p>
+        <p class="slide-up delay-4" style="font-size: 16px; color: #e6e6e6; margin-top: 20px;">
             I know it's only been a few days, but to be completely honest... I'm really starting to like our vibe, and you might just be my favorite notification.<br><br>
             (But don't let it get to your head, I'm still the better one here 😌).
         </p>
-        <button onclick="window.location.href='https://instagram.com'" style="margin-top: 30px;">Now go text me back</button>
+        <button class="slide-up delay-4" onclick="window.location.href='https://instagram.com'" style="margin-top: 30px;">Now go text me back</button>
     </div>
 
     <script>
-        function showStep2() {
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
+        // Smooth transition function between steps
+        function transitionTo(hideId, showId) {
+            const hideEl = document.getElementById(hideId);
+            const showEl = document.getElementById(showId);
+            
+            hideEl.style.opacity = '0';
+            hideEl.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                hideEl.classList.add('hidden');
+                
+                // Remove animation classes and re-add them to re-trigger animations
+                const animatedElements = showEl.querySelectorAll('.slide-up');
+                animatedElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; /* trigger reflow */
+                    el.style.animation = null; 
+                });
+
+                showEl.classList.remove('hidden');
+            }, 400);
         }
 
+        // Form Submission Logic
         const form = document.getElementById('vipForm');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -219,7 +288,7 @@
             const object = Object.fromEntries(formData);
             const json = JSON.stringify(object);
 
-            // Send data silently to your email via Web3Forms
+            // Send data silently to your email
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
@@ -229,13 +298,12 @@
                 body: json
             })
             .then(async (response) => {
-                // Instantly hide form and show the flirty reward
-                document.getElementById('step2').classList.add('hidden');
-                document.getElementById('step3').classList.remove('hidden');
+                transitionTo('step2', 'step3');
             })
             .catch(error => {
                 console.log(error);
                 submitBtn.innerText = "Submit & Unlock Reward";
+                submitBtn.style.opacity = "1";
             });
         });
     </script>
